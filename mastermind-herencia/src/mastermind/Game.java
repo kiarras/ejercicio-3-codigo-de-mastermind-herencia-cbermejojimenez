@@ -23,24 +23,20 @@ class Game {
 	public void play() {
 		this.start();
 		do {
-			this.playTurn();
+			Combination proposedCombination = new Combination();
+			proposedCombination.readValue();
+			this.results[this.attempsCounter] = new Result(proposedCombination, this.secretCombination);
+			this.attempsCounter++;
 			this.console.out(this.toString());
 
 		} while (!this.isEndOfGame());
 	}
 	
-	protected void playTurn() {
-		Combination proposedCombination = new Combination();
-		proposedCombination.readValue();
-		this.results[this.attempsCounter] = new Result(proposedCombination, this.secretCombination);
-		this.attempsCounter++;
-	}
-	
-	protected boolean isEndOfGame() {
+	private boolean isEndOfGame() {
 		return this.attempsCounter == MAX_ATTEMPS || this.getLastResult().isWinner();
 	}
 	
-	protected Result getLastResult() {
+	private Result getLastResult() {
 		return this.results[this.attempsCounter - 1];
 	}
 
